@@ -7,41 +7,69 @@ def do_plus(num1, num2):
         raise TypeError("错误的类型 %s 和 %s" % (type(num1), type(num2)))
 
 
+food_take = {}
+food_have = {}
+
+
+def is_food(food_recipe, icebox):
+    """
+
+    :param food_recipe:
+    :param food_icebox:
+    :return:
+    """
+    count = 0
+    isFood = False
+    for food in food_recipe:
+        if not food in icebox:
+            food_have[food] = 0
+            break
+        elif food_recipe[food] > icebox[food]:
+            food_have[food] = icebox[food]
+            print(food_have)
+        else:
+            food_have[food] = food_recipe[food]
+            print(food_have)
+            count += 1
+    if count == len(food_recipe):
+        isFood = True
+    return isFood
+
+
 def make_omelet_q3(icebox):
     # if(type(icebox)==type({})):
     def remove_from_fridge(food_recipe):
-        food_take = {}
-        food_have = {}
-        count = 0
-        isFood = False
+        # food_take = {}
+        # food_have = {}
+        # count = 0
+        # isFood = False
         # 记录当前菜谱的键
-        for food in food_recipe:
-            for recipe in icebox:
-                if (food == recipe and icebox[food] >= food_recipe[recipe]):
-                    count = count + 1
-                    food_have[food] = food_recipe[food]
-                    isFood = True
-                    break
-                elif (food == recipe):
-                    food_have[food] = icebox[food]
-                    isFood = True
-                    break
-            if (isFood != True):
-                food_have[food] = 0
-            else:
-                isFood = False
-            # 进行判断，如果材料已经满足，则不需要再进行循环判断，可以直接
-            # 跳过
-            if (count == len(food_recipe)):
-                break
-        if (count == len(food_recipe)):
+        # for food in food_recipe:
+        # for recipe in icebox:
+        #     if (food == recipe and icebox[food] >= food_recipe[recipe]):
+        #         count = count + 1
+        #         food_have[food] = food_recipe[food]
+        #         isFood = True
+        #         break
+        #     elif (food == recipe):
+        #         food_have[food] = icebox[food]
+        #         isFood = True
+        #         break
+        # if (isFood != True):
+        #     food_have[food] = 0
+        # else:
+        #     isFood = False
+        isfood = is_food(food_recipe, icebox)
+        if (isfood):
             print("材料足够")
         else:
             string = "缺少："
             for food in food_have:
+
                 if (food_recipe[food] - food_have[food] == 0):
                     continue
-                string += " " + food + " " + str(food_recipe[food] - food_have[food]) + " 个"
+                else:
+                    string += " " + food + " " + str(food_recipe[food] - food_have[food]) + " 个"
             # raise LookupError("%s 材料不够，无法完成"% string)
             print("%s 材料不够，无法完成" % string)
             return
@@ -60,4 +88,4 @@ def make_omelet_q3(icebox):
         print(food_take)
 
 
-make_omelet_q3({"番茄":4,"土豆":6,"胡萝卜":3})
+make_omelet_q3({"番茄": 4, "土豆": 6, "胡萝卜": 3})
