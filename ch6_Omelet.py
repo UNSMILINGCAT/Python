@@ -1,15 +1,18 @@
+import ch6_Recipe
+
+
 class Omelet:
     """
 
     """
 
-    def __init__(self, kind=None):
+    def __init__(self, kind=None, recipe=ch6_Recipe.Recipe()):
         """
-
-        :param str kind:
+        进行初始化操作，参数为传入一个配方
+        :param recipe:
         """
-        self.set_kind(kind)
-        return
+        self.kind = kind
+        self.recipe = recipe
 
     def __ingredients__(self):
         """
@@ -28,7 +31,7 @@ class Omelet:
         :return:
         """
         possible_ingredients = self.__known_kinds(kind)
-        if possible_ingredients == False:
+        if possible_ingredients is False:
             return False
         else:
             self.kind = kind
@@ -51,12 +54,9 @@ class Omelet:
         :param kind:
         :return:
         """
-        if kind == "乳酪":
-            return {"鸡蛋": 2, "牛奶": 1, "乳酪": 1}
-        elif kind == "蘑菇":
-            return {"鸡蛋": 2, "牛奶": 1, "乳酪": 1, "蘑菇": 2}
-        elif kind == "洋葱":
-            return {"鸡蛋": 2, "牛奶": 1, "乳酪": 1, "洋葱": 1}
+        ingredient = self.recipe.get(kind)
+        if ingredient is not False:
+            return ingredient
         else:
             return False
 
@@ -66,22 +66,22 @@ class Omelet:
         :param fridge:
         :return:
         """
-        self.from_fridge=fridge.get_ingredients(self)
+        self.from_fridge = fridge.get_ingredients(self)
 
     # def mix(self):
     #     for ingrdient in self.from_fridge:
     #         print("Mixing %d %s for the %s omelet" % (self.needed_ingredients[ingrdient], ingrdient, self.kind))
     #     self.mixed = True
 
-    def mix(self,isPrint=True):
+    def mix(self, isPrint=True):
         """
 
         :param isPrint:
         :return:
         """
-        for ingrdient in self.from_fridge:
+        for ingredient in self.from_fridge:
             if isPrint:
-                print("Mixing %d %s for the %s omelet" % (self.from_fridge[ingrdient], ingrdient, self.kind))
+                print("Mixing %d %s for the %s omelet" % (self.from_fridge[ingredient], ingredient, self.kind))
             else:
                 break
         self.mixed = True
@@ -90,7 +90,8 @@ class Omelet:
         if self.mixed == True:
             print("正在烹饪 %s 蛋卷" % self.kind)
             self.cooked = True
-    def quick_cook(self,kind,quantity,fridge):
+
+    def quick_cook(self, kind, quantity, fridge):
         """
 
         :param kind:
