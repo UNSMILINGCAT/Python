@@ -34,7 +34,7 @@ class Recipe:
         :param dict ingredients:配方材料
         :return:
         """
-        if not recipe_name in self.__recipe_names:
+        if not recipe_name  in self.__recipe_names:
             self.__recipe_names[recipe_name] = ingredients
         else:
             print("菜谱已经存在，无法进行添加")

@@ -73,21 +73,21 @@ class Omelet:
     #         print("Mixing %d %s for the %s omelet" % (self.needed_ingredients[ingrdient], ingrdient, self.kind))
     #     self.mixed = True
 
-    def mix(self, isPrint=True):
+    def mix(self, is_print=True):
         """
 
-        :param isPrint:
+        :param is_print:
         :return:
         """
         for ingredient in self.from_fridge:
-            if isPrint:
+            if is_print:
                 print("Mixing %d %s for the %s omelet" % (self.from_fridge[ingredient], ingredient, self.kind))
             else:
                 break
         self.mixed = True
 
     def make(self):
-        if self.mixed == True:
+        if self.mixed is True:
             print("正在烹饪 %s 蛋卷" % self.kind)
             self.cooked = True
 
