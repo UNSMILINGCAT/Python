@@ -13,7 +13,7 @@ def print_pdf(regex, path):
         __scan_pdf(regex, files_path)
 
 
-def __scan_pdf(regex, files_path=()):
+def __scan_pdf(regex, files_path=None):
     """
     根据正则来匹配相应的文件
     :param: regex 正则
